@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Float!
+  name: String!
+  age: Float
+}
+
+type Query {
+  findAll: [User!]!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserDto!): User!
+}
+
+input CreateUserDto {
+  name: String!
+  age: Float
+}
