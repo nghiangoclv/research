@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  nestjs-app:
+    image: nestjs-app:latest
+    container_name: nestjs-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:3001"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=graphql-db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+      - database
+    restart: always
+
+  database:
+    image: postgres:15-alpine
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: graphql-db
+    ports:
+      - "5432:5432" # Expose PostgreSQL trên cổng 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  db_data:
